@@ -1,0 +1,95 @@
+---
+- hosts: all
+  vars:
+    ansible_sudo_pass: balajiv
+    jenkins_home: "/home/xbalaji/containers/jenkins"
+    artifactory_home: "/home/xbalaji/containers/artifactory"
+    gitea_home: "/home/xbalaji/containers/gitea"
+  tasks:
+  - name: test connection
+    ping:
+
+  - name: install pip command
+    become: yes
+    become_method: sudo
+    apt:
+      name: python-pip
+      state: present
+
+  - name: upgrade pip
+    become: yes
+    pip:
+      name : pip
+      extra_args: --upgrade
+      state: present
+    
+  - name: install docker.py
+    become: yes
+    pip:
+      name : docker.py
+      state: present
+    
+
+  - name: docker pull hello-world
+    docker_container:
+      name : myhello
+      image: hello-world
+      state: started
+
+  - name: create directory for jenkins container
+    file:
+      path: "{{ jenkins_home }}"
+      state: directory
+
+  - name: docker start jenkins
+    become: yes
+    docker_container:
+      name: jenkins_on_docker
+      image: jenkins/jenkins:lts
+      volumes:
+        - "{{ jenkins_home }}:/var/jenkins_home:z"
+      ports: 
+        - "8080:8080"
+        - "50000:50000"
+      state: started
+      env: 
+        JAVA_OPTS: "-Dhudson.Main.development=true -Djenkins.install.runSetupWizard=false" 
+    
+  - name: create directory for artifactory container
+    file:
+      path: "{{ artifactory_home }}"
+      state: directory
+
+  - name: docker start artifactory
+    become: yes
+    docker_container:
+      name: artifactory_on_docker
+      image: docker.bintray.io/jfrog/artifactory-oss:latest
+      volumes:
+        - "{{ artifactory_home }}:/var/opt/jfrog/artifactory"
+      ports: 
+        - "8081:8081"
+      state: started
+      env: 
+    
+  - name: create directory for gitea container
+    file:
+      path: "{{ gitea_home }}"
+      state: directory
+
+  - name: docker start gitea
+    become: yes
+    docker_container:
+      name: gitea_on_docker
+      image: gitea/gitea:latest
+      volumes:
+        - "{{ gitea_home }}:/data"
+      ports: 
+        - "10022:22"
+        - "10080:3000"
+      state: started
+      env: 
+    
+
+
+
