@@ -1,0 +1,14 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+    # upload ssh key
+    - authorized_key:
+        user: root
+        state: present
+        manage_dir: yes
+        key: "{{ lookup('file', '/home/xbalaji/.ssh/id_rsa.pub') }}"
+
+
+# now run this playbook 
+# ansible-playbook -i <inventory> <this_playbook>
