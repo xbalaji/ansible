@@ -1,0 +1,22 @@
+
+# start the containers
+docker run --name web1 -d -t ubsshpy
+docker run --name web2 -d -t ubsshpy
+docker run --name db1  -d -t ubsshpy
+
+# print the ip addresses of the containers
+docker inspect -f  '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' web1
+docker inspect -f  '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' web2
+docker inspect -f  '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db1
+
+docker exec -i -t web1 /bin/bash
+docker exec -i -t web2 /bin/bash
+docker exec -i -t db1  /bin/bash
+
+
+In each container run the following 
+apt -y update
+apt -y upgrade
+apt-get install -y python-minimal --no-install-recommends
+python --version
+
