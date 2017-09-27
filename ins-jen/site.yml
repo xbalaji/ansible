@@ -1,3 +1,21 @@
 ---
-- hosts: all
-  name:
+---
+- name: install python
+  hosts: rhel_servers
+  roles:
+    - rhel_raw_py_install
+
+- name: copy ssh keys
+  hosts: jenkins
+  roles:
+    - cp_keys
+
+- name: install packages
+  hosts: jenkins
+  roles:
+    - common
+
+- name: install jenkins
+  hosts: jenkins
+  roles:
+    - jenkins

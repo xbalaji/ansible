@@ -1,0 +1,9 @@
+---
+- name: raw install python
+  gather_facts: False
+  remote_user: root
+
+  tasks:
+    - name: install full python
+      raw: yum install -y python
+
