@@ -1,0 +1,31 @@
+#
+# author: Balaji Venkataraman (http://bit.ly/xbalaji)
+#
+################## Dockerfile ###################
+# from
+#   https://github.com/CentOS/CentOS-Dockerfiles/tree/master/ssh/centos7
+#
+# build command
+#   docker build -f <Dockerfile> -t centos7ssh .
+#
+# prerequisites:
+#
+# docker pull centos:7
+#
+
+FROM centos:7
+
+RUN yum -y update; yum clean all
+RUN yum -y install openssh-server passwd; yum clean all
+RUN mkdir /var/run/sshd
+
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' 
+
+RUN echo -e "balajiv\nbalajiv" | (passwd --stdin root)
+RUN echo ssh root password: balajiv
+
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+
+################## end - Dockerfile ###################

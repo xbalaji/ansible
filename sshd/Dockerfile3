@@ -1,0 +1,17 @@
+#
+# available at gist: 
+#   https://gist.github.com/xbalaji/ecd428eb8ee48981cb24ac0c57c8d21b
+#
+################## Dockerfile ###################
+# from
+#   https://docs.docker.com/engine/examples/running_ssh_service/
+#
+# build command
+#   docker build -f <Dockerfile> -t ubsshpy2 .
+#
+
+FROM ubssh
+
+RUN apt-get -y update && apt-get -y upgrade && apt-get install -y python
+
+################## end - Dockerfile ###################

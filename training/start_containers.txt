@@ -20,3 +20,14 @@ apt -y upgrade
 apt-get install -y python-minimal --no-install-recommends
 python --version
 
+
+# rhel containers
+docker pull registry.access.redhat.com/rhel7/rhel
+docker tag registry.access.redhat.com/rhel7/rhel:latest rhel7:latest
+
+# centos 7 container
+docker pull centos:7
+
+docker run --name rhel7jen -d -t centos7ssh
+docker inspect -f  '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rhel7jen
+docker exec -i -t rhel7jen /bin/bash

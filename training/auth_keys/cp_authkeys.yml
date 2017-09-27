@@ -1,13 +1,23 @@
 ---
 - hosts: all
+  gather_facts: False
   remote_user: root
+
   tasks:
+    - name: create /root/.ssh
+      file:
+        path: /root/.ssh
+        state: directory
+        mode: 0700
+
     # upload ssh key
-    - authorized_key:
+    - name: update authorized_key
+      authorized_key:
         user: root
+        exclusive: no
         state: present
-        manage_dir: yes
         key: "{{ lookup('file', '/home/xbalaji/.ssh/id_rsa.pub') }}"
+        manage_dir: yes
 
 
 # now run this playbook 

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  gather_facts: False
+  remote_user: root
+
+  tasks:
+    - name: install full python
+      raw: apt -y update && apt -y install python
+
+# now run this playbook 
+# ansible-playbook -i <inventory> <this_playbook>

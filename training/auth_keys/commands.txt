@@ -1,0 +1,15 @@
+------
+$cat hosts
+172.17.0.2
+------
+
+# install python for ansible operations, requirement, uses raw module
+ansible-playbook -i hosts install_py.yml
+
+# copy the authorized keys for further plays, uses authorized_keys module
+ansible-playbook -i hosts cp_authkeys.yml
+
+# check if the play works without password etc.
+ansible -i '172.17.0.2,' -m ping all -u root
+
+
