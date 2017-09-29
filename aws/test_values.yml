@@ -1,0 +1,7 @@
+---
+ec2_access_key: 'ABC_ACCESS_KEY'
+ec2_secret_key: 'XYZ_SECRET_KEY'
+
+#
+# use: ansible-vault encrypt test_values.yml --output test_values_encrypt.yml
+# to save the this file as encrypted

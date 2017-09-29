@@ -1,0 +1,23 @@
+---
+
+#
+# execute this playbook using the command
+#
+# ansible-playbook -i hosts.ini vartest_encrypt.yml --ask-vault-pass
+#
+
+
+- hosts: all
+  name: run a play
+  tasks:
+    - include_vars: 
+        file: test_values_encrypt.yml
+    - shell: echo "hello, world"
+    - debug:
+        msg: "ec2_access_key is {{ec2_access_key}}, ec2_secret_key is {{ec2_secret_key}}" 
+
+#  vars:
+#    ec2_access_key: 'ABC_ACCESS_KEY'
+#    ec2_secret_key: 'XYZ_SECRET_KEY'
+
+
