@@ -1,0 +1,60 @@
+---
+
+- hosts: localhost
+  name: Create a ec2 instance
+  gather_facts: False
+
+  vars:
+    keypair: "xb_rsa_01"
+    instance_type: "t2.nano"
+    security_group: "xb-sec-gp1"
+    image: "ami-6e1a0117"
+    region: "us-west-2"
+
+  tasks:
+    - include_vars: 
+        file: ec2_keys.yml
+    - shell: echo "hello world"
+    - debug:
+        msg: "ec2_access_key is {{ec2_access_key}} ec2_secret_key is {{ec2_secret_key}}" 
+
+    - name: Launch instance
+      ec2:
+        aws_access_key: "{{ec2_access_key}}"
+        aws_secret_key: "{{ec2_secret_key}}"
+        count: 1
+        key_name: "{{ keypair }}"
+        group: "{{ security_group }}"
+        instance_type: "{{ instance_type }}"
+        instance_tags:
+          Name: "xb-auto-launch"
+        image: "{{ image }}"
+        wait: true
+        region: "{{ region }}"
+        vpc_subnet_id: "subnet-bb920fdc"
+        assign_public_ip: no
+      register: ec2
+
+    - name: Add new instance to host group
+      debug:
+        msg: "ec2 instance details:   ip: {{ item.private_ip }}"
+        msg: "ec2 instance details: name: {{ item.private_dns_name }}"
+        msg: "ec2 instance details: full: {{ item }}"
+      with_items: "{{ ec2.instances }}"
+
+#    - name: Add new instance to host group
+#      add_host:
+#        hostname: "{{ item.public_ip }}"
+#        groupname: launched
+#      with_items: "{{ ec2.instances }}"
+#
+#    - name: Wait for SSH to come up
+#      wait_for:
+#        host: "{{ item.private_dns_name }}"
+#        port: 22
+#        delay: 60
+#        timeout: 320
+#        state: started
+#      with_items: "{{ ec2.instances }}"
+
+

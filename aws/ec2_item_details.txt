@@ -1,0 +1,43 @@
+ok: [localhost] => (item={u'kernel': None, u'root_device_type': u'ebs', u'private_dns_name': u'ip-10-88-4-214.us-west-2.compute.internal', u'public_ip': None, u'private_ip': u'10.88.4.214', u'id': u'i-05881a9ad78d9b822', u'ebs_optimized': False, u'state': u'running', u'virtualization_type': u'hvm', u'architecture': u'x86_64', u'ramdisk': None, u'block_device_mapping': {u'/dev/sda1': {u'status': u'attached', u'delete_on_termination': True, u'volume_id': u'vol-049e2c2051c5c4d38'}}, u'key_name': u'xb_rsa_01', u'image_id': u'ami-6e1a0117', u'tenancy': u'default', u'groups': {u'sg-c7f40fba': u'xb-sec-gp1'}, u'public_dns_name': u'', u'state_code': 16, u'tags': {u'Name': u'xb-auto-launch'}, u'placement': u'us-west-2a', u'ami_launch_index': u'0', u'dns_name': u'', u'region': u'us-west-2', u'launch_time': u'2017-09-29T08:17:09.000Z', u'instance_type': u't2.nano', u'root_device_name': u'/dev/sda1', u'hypervisor': u'xen'}) => {
+    "item": {
+        "ami_launch_index": "0",
+        "architecture": "x86_64",
+        "block_device_mapping": {
+            "/dev/sda1": {
+                "delete_on_termination": true,
+                "status": "attached",
+                "volume_id": "vol-049e2c2051c5c4d38"
+            }
+        },
+        "dns_name": "",
+        "ebs_optimized": false,
+        "groups": {
+            "sg-c7f40fba": "xb-sec-gp1"
+        },
+        "hypervisor": "xen",
+        "id": "i-05881a9ad78d9b822",
+        "image_id": "ami-6e1a0117",
+        "instance_type": "t2.nano",
+        "kernel": null,
+        "key_name": "xb_rsa_01",
+        "launch_time": "2017-09-29T08:17:09.000Z",
+        "placement": "us-west-2a",
+        "private_dns_name": "ip-10-88-4-214.us-west-2.compute.internal",
+        "private_ip": "10.88.4.214",
+        "public_dns_name": "",
+        "public_ip": null,
+        "ramdisk": null,
+        "region": "us-west-2",
+        "root_device_name": "/dev/sda1",
+        "root_device_type": "ebs",
+        "state": "running",
+        "state_code": 16,
+        "tags": {
+            "Name": "xb-auto-launch"
+        },
+        "tenancy": "default",
+        "virtualization_type": "hvm"
+    },
+    "msg": "ec2 instance details: full: {u'kernel': None, u'root_device_type': u'ebs', u'private_dns_name': u'ip-10-88-4-214.us-west-2.compute.internal', u'public_ip': None, u'private_ip': u'10.88.4.214', u'id': u'i-05881a9ad78d9b822', u'ebs_optimized': False, u'state': u'running', u'virtualization_type': u'hvm', u'architecture': u'x86_64', u'ramdisk': None, u'block_device_mapping': {u'/dev/sda1': {u'status': u'attached', u'delete_on_termination': True, u'volume_id': u'vol-049e2c2051c5c4d38'}}, u'key_name': u'xb_rsa_01', u'image_id': u'ami-6e1a0117', u'tenancy': u'default', u'groups': {u'sg-c7f40fba': u'xb-sec-gp1'}, u'public_dns_name': u'', u'state_code': 16, u'tags': {u'Name': u'xb-auto-launch'}, u'placement': u'us-west-2a', u'ami_launch_index': u'0', u'dns_name': u'', u'region': u'us-west-2', u'launch_time': u'2017-09-29T08:17:09.000Z', u'instance_type': u't2.nano', u'root_device_name': u'/dev/sda1', u'hypervisor': u'xen'}"
+}
+
