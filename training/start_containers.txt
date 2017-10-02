@@ -31,3 +31,23 @@ docker pull centos:7
 docker run --name rhel7jen -d -t centos7ssh
 docker inspect -f  '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rhel7jen
 docker exec -i -t rhel7jen /bin/bash
+
+
+# running gitlab-ce on docker
+docker pull gitlab/gitlab-ce:latest
+docker tag gitlab/gitlab-ce:latest gitlab:latest
+docker run --name "git_on_docker" -d  --rm              \
+    -p8080:80 -p8022:22 -p8443:443                      \
+    -v ${HOME}/containers/gitlab/etc:/etc/gitlab:z      \
+    -v ${HOME}/containers/gitlab/opt:/var/opt/gitlab:z  \
+    -v ${HOME}/containers/gitlab/log:/var/log/gitlab:z  \
+    -t gitlab
+
+docker inspect -f  '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' git_on_docker
+
+# wait for: docker logs -f git_on_docker  | grep 'gitlab Reconfigured!'
+# wait for at least 10 minutes before trying http://localhost:8080
+
+
+# print ip address of the containers running
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}: {{.Name}}' $(docker ps -aq)

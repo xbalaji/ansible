@@ -4,7 +4,7 @@
     ansible_sudo_pass: balajiv
     jenkins_home: "/home/xbalaji/containers/jenkins"
     artifactory_home: "/home/xbalaji/containers/artifactory"
-    gitea_home: "/home/xbalaji/containers/gitea"
+    gitlab_home: "/home/xbalaji/containers/gitlab"
   tasks:
   - name: test connection
     ping:
@@ -29,7 +29,6 @@
       name : docker.py
       state: present
     
-
   - name: docker pull hello-world
     docker_container:
       name : myhello
@@ -72,24 +71,28 @@
       state: started
       env: 
     
-  - name: create directory for gitea container
-    file:
-      path: "{{ gitea_home }}"
+  - name: create directory for gitlab container
+    file: 
+      path:  "{{gitlab_home}}/{{item}}"
       state: directory
+    with_items:
+      [ "etc", "opt", "log" ]
 
-  - name: docker start gitea
+  - name: docker start gitlab
     become: yes
     docker_container:
-      name: gitea_on_docker
-      image: gitea/gitea:latest
+      name: gitlab_on_docker
+      image: gitlab/gitlab-ce
       volumes:
-        - "{{ gitea_home }}:/data"
+        - "{{ gitlab_home }}/etc:/etc/gitlab:z"
+        - "{{ gitlab_home }}/opt:/var/opt/gitlab:z"
+        - "{{ gitlab_home }}/log:/var/log/gitlab:z"
       ports: 
         - "10022:22"
-        - "10080:3000"
+        - "10080:80"
+        - "10433:443"
       state: started
       env: 
     
-
 
 
