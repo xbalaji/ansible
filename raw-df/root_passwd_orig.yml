@@ -1,0 +1,16 @@
+
+# file for storing root password for the ubssh file, this file will be
+# encrypted using the command. 
+# 
+#
+#   ansible-vault encrypt root_passwd.yml
+#
+# copy of this is available at root_passwd_orig.yml
+#
+# you can view the encrypted file using the command
+#
+#   ansible-vault view root_passwd.yml
+#
+
+root_passwd: 'balajiv'
+

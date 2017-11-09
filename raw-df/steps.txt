@@ -1,0 +1,26 @@
+
+Steps:
+
+1.  Create a docker container (ubuntu) with just ssh, no python installed, 
+    note down the ip address. check ../sshd/Dockerfile1, on how this 
+    container is created, notedown the root passwd (balajiv)
+
+      docker run --name srvr -d -t ubssh
+      docker ps  -a
+      docker inspect -f  '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' srvr
+
+2.  Manually login to the system using ssh with the found ip address, make sure 
+    ssh works. 
+      ssh root@172.17.0.2 
+
+3.  Make sure there is no python installed in the system, or through ssh
+      docker exec -i -t srvr 'python --version'
+
+4.  Create 'hosts' file with the ip address
+5.  Create root_passwd.yml file, copy it as root_passwd_orig.yml
+6.  Execute the commands as listed in root_passwd.yml, encrypted password file
+    is created
+8.  Create 'ansible.cfg' to disable host key checking
+7.  Write a simple raw_df.yml, to login using ssh login and execute 
+    'df -h' on the remote host (srvr)
+
